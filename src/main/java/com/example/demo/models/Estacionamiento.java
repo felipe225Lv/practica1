@@ -1,7 +1,7 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,13 +15,17 @@ public class Estacionamiento {
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    @OneToMany(mappedBy = "automovil", cascade = CascadeType.ALL ,orphanRemoval = true)
-    private List<Automovil> automoviles;
-    @OneToMany(mappedBy = "motocicleta", cascade = CascadeType.ALL ,orphanRemoval = true)
-    private List<Motocicleta> motocicletas;
+    @OneToMany(mappedBy = "estacionamiento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Automovil> automoviles = new ArrayList<>();
+
+    // Constructores
+    public Estacionamiento() {}
+
+    public Estacionamiento(String nombre) {
+        this.nombre = nombre;
+    }
 
     // Getters y Setters
-
     public Long getId() {
         return id;
     }
@@ -44,13 +48,5 @@ public class Estacionamiento {
 
     public void setAutomoviles(List<Automovil> automoviles) {
         this.automoviles = automoviles;
-    }
-
-    public List<Motocicleta> getMotocicletas() {
-        return motocicletas;
-    }
-
-    public void setMotocicletas(List<Motocicleta> motocicletas) {
-        this.motocicletas = motocicletas;
     }
 }
